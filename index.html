@@ -55,33 +55,30 @@
   </div>
 
   <section id="buscar" class="card">
-    <h2>Buscar bobina</h2>
-    <div class="grid">
-  <div>
-    <label>Espesor</label>
-    <input id="bEspesor" placeholder="0,160" inputmode="decimal" enterkeyhint="next">
-  </div>
-  <div>
-    <label>Ancho</label>
-    <input id="bAncho" placeholder="870" inputmode="numeric" enterkeyhint="next">
-  </div>
-    </div>
-  <div>
-    <label>Espesor</label>
-    
-  </div>
-  <div>
-    <label>Ancho</label>
-    <input id="bAncho" placeholder="870" inputmode="numeric" enterkeyhint="next">
-  </div>
-    </div>
-    <label>Cromado</label><input id="bCromado" placeholder="50-140" enterkeyhint="search">
-    <label>Planta</label><div id="bPlanta" class="plantas"></div>
-    <button onclick="buscarBobina()">BUSCAR CALLE</button>
-    <button class="secondary" onclick="limpiarBuscar()">LIMPIAR</button>
-    <div id="resultado" class="result hidden"></div>
-  </section>
+  <h2>Buscar bobina</h2>
 
+  <div class="grid">
+    <div>
+      <label>Espesor</label>
+      <input id="bEspesor" placeholder="0,160" inputmode="decimal" enterkeyhint="next">
+    </div>
+    <div>
+      <label>Ancho</label>
+      <input id="bAncho" placeholder="870" inputmode="numeric" enterkeyhint="next">
+    </div>
+  </div>
+
+  <label>Cromado</label>
+  <input id="bCromado" placeholder="50-140" enterkeyhint="search">
+
+  <label>Planta</label>
+  <div id="bPlanta" class="plantas"></div>
+
+  <button onclick="buscarBobina()">BUSCAR CALLE</button>
+  <button class="secondary" onclick="limpiarBuscar()">LIMPIAR</button>
+
+  <div id="resultado" class="result hidden"></div>
+  </section>
   <section id="add" class="card hidden">
     <h2>Añadir / editar dato</h2>
     <div class="grid">
