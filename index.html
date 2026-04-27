@@ -1,1 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bobinas PRO</title>
+  <style>
+    :root{
+      --bg:#07111f;--card:#101c2e;--card2:#0c1727;--txt:#f4f7fb;
+      --muted:#9fb0c7;--blue:#38bdf8;--green:#22c55e;--red:#ef4444;
+      --yellow:#facc15;--border:#26364d;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,system-ui,sans-serif;background:linear-gradient(180deg,#020617,#07111f);color:var(--txt)}
+    .app{max-width:520px;margin:auto;padding:18px 14px 90px}
+    .top{text-align:center;margin:12px 0 22px}
+    .logo{font-size:38px}
+    h1{margin:6px 0 4px;font-size:30px}
+    .sub{color:var(--muted);font-size:14px}
+    .card{background:rgba(16,28,46,.96);border:1px solid var(--border);border-radius:22px;padding:16px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    label{display:block;margin:12px 0 6px;color:#d9e6f7;font-weight:700}
+    input{width:100%;padding:15px;border-radius:14px;border:1px solid var(--border);background:#07111f;color:white;font-size:18px}
+    input::placeholder{color:#64748b}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .plantas{display:grid;grid-template-columns:1fr;gap:9px;margin-top:8px}
+    .check{display:flex;align-items:center;gap:10px;padding:13px;border-radius:14px;background:#07111f;border:1px solid var(--border);cursor:pointer}
+    .box{width:22px;height:22px;border:2px solid var(--blue);border-radius:6px;display:grid;place-items:center}
+    .check.active .box{background:var(--blue);color:#00111c}
+    .check.active .box:after{content:"✓";font-weight:900}
+    button{width:100%;border:0;border-radius:16px;padding:15px;font-size:17px;font-weight:900;color:#00111c;background:var(--blue);margin-top:14px;cursor:pointer}
+    button.secondary{background:#1f2937;color:white;border:1px solid var(--border)}
+    button.green{background:var(--green)}
+    button.red{background:var(--red);color:white}
+    .result{margin-top:14px;padding:16px;border-radius:16px;background:#07111f;border:1px solid var(--border);font-size:18px}
+    .ok{color:var(--green);font-weight:900}
+    .bad{color:var(--red);font-weight:900}
+    .warn{color:var(--yellow);font-weight:900}
+    .tabs{position:fixed;bottom:0;left:0;right:0;background:#020617;border-top:1px solid var(--border);display:flex;max-width:520px;margin:auto}
+    .tab{flex:1;padding:13px;text-align:center;color:var(--muted);font-weight:800;cursor:pointer}
+    .tab.active{color:var(--blue)}
+    .hidden{display:none}
+    .item{background:#07111f;border:1px solid var(--border);border-radius:15px;padding:12px;margin:10px 0}
+    .pill{display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:900;margin-top:6px}
+    .libre{background:rgba(34,197,94,.18);color:#4ade80}
+    .ocupada{background:rgba(239,68,68,.18);color:#f87171}
+    .small{font-size:13px;color:var(--muted)}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="logo">🧲</div>
+    <h1>Bobinas PRO</h1>
+    <div class="sub">Buscador de calles por bobina</div>
+  </div>
 
+  <section id="buscar" class="card">
+    <h2>Buscar bobina</h2>
+    <div class="grid">
+      <div><label>Espesor</label><input id="bEspesor" placeholder="0,160"></div>
+      <div><label>Ancho</label><input id="bAncho" placeholder="870"></div>
+    </div>
+    <label>Cromado</label><input id="bCromado" placeholder="50-140">
+    <label>Planta</label><div id="bPlanta" class="plantas"></div>
+    <button onclick="buscarBobina()">BUSCAR CALLE</button>
+    <div id="resultado" class="result hidden"></div>
+  </section>
+
+  <section id="add" class="card hidden">
+    <h2>Añadir / editar dato</h2>
+    <div class="grid">
+      <div><label>Espesor</label><input id="aEspesor" placeholder="0,160"></div>
+      <div><label>Ancho</label><input id="aAncho" placeholder="870"></div>
+    </div>
+    <label>Cromado</label><input id="aCromado" placeholder="50-140">
+    <label>Planta</label><div id="aPlanta" class="plantas"></div>
+    <label>Calle</label><input id="aCalle" placeholder="Ej: W-3, 5, 62...">
+    <button class="green" onclick="guardarBobina()">GUARDAR</button>
+    <div id="msgAdd" class="result hidden"></div>
+  </section>
+
+  <section id="lista" class="card hidden">
+    <h2>Base guardada</h2>
+    <button class="secondary" onclick="renderLista()">ACTUALIZAR LISTA</button>
+    <div id="listaDatos"></div>
+  </section>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="tab('buscar',this)">🔍 Buscar</div>
+  <div class="tab" onclick="tab('add',this)">➕ Añadir</div>
+  <div class="tab" onclick="tab('lista',this)">📋 Lista</div>
+</div>
+
+<script>
+const PLANTAS = ["Avilés","Etxebarri","Extranjeras"];
+let datos = JSON.parse(localStorage.getItem("bobinas_pro") || "[]");
+let plantaBuscar = "";
+let plantaAdd = "";
+
+function normal(v){
+  return String(v || "").trim().toLowerCase().replace(",", ".").replace(/\s+/g,"");
+}
+function pintarPlantas(id, tipo){
+  const cont = document.getElementById(id);
+  cont.innerHTML = "";
+  PLANTAS.forEach(p=>{
+    const d=document.createElement("div");
+    d.className="check";
+    d.innerHTML=`<span class="box"></span><strong>${p}</strong>`;
+    d.onclick=()=>{
+      if(tipo==="buscar") plantaBuscar=p; else plantaAdd=p;
+      [...cont.children].forEach(x=>x.classList.remove("active"));
+      d.classList.add("active");
+    };
+    cont.appendChild(d);
+  });
+}
+pintarPlantas("bPlanta","buscar");
+pintarPlantas("aPlanta","add");
+
+function tab(id, el){
+  ["buscar","add","lista"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  el.classList.add("active");
+  if(id==="lista") renderLista();
+}
+
+function clave(e,a,c,p){ return `${normal(e)}|${normal(a)}|${normal(c)}|${normal(p)}`; }
+
+function buscarBobina(){
+  const e=bEspesor.value, a=bAncho.value, c=bCromado.value;
+  const r=document.getElementById("resultado");
+  r.classList.remove("hidden");
+  if(!e||!a||!c||!plantaBuscar){
+    r.innerHTML=`<span class="warn">⚠️ Rellena espesor, ancho, cromado y planta.</span>`;
+    return;
+  }
+  const k=clave(e,a,c,plantaBuscar);
+  const found=datos.find(x=>x.key===k);
+  if(!found){
+    r.innerHTML=`<span class="bad">❌ No encontrado.</span><br><span class="small">Puedes añadirlo en la pestaña ➕ Añadir.</span>`;
+    return;
+  }
+  r.innerHTML=`
+    <div class="ok">✅ CALLE: ${found.calle}</div>
+    <div class="small">Espesor ${found.espesor} · Ancho ${found.ancho} · Cromado ${found.cromado} · ${found.planta}</div>
+    <div class="pill ${found.estado==='Libre'?'libre':'ocupada'}">${found.estado}</div>
+    <button class="${found.estado==='Libre'?'red':'green'}" onclick="cambiarEstado('${found.key}')">
+      ${found.estado==='Libre'?'MARCAR OCUPADA':'MARCAR LIBRE'}
+    </button>
+  `;
+}
+
+function guardarBobina(){
+  const e=aEspesor.value, a=aAncho.value, c=aCromado.value, calle=aCalle.value;
+  const msg=document.getElementById("msgAdd");
+  msg.classList.remove("hidden");
+  if(!e||!a||!c||!plantaAdd||!calle){
+    msg.innerHTML=`<span class="warn">⚠️ Faltan datos.</span>`;
+    return;
+  }
+  const k=clave(e,a,c,plantaAdd);
+  const obj={key:k,espesor:e.trim(),ancho:a.trim(),cromado:c.trim(),planta:plantaAdd,calle:calle.trim(),estado:"Libre"};
+  const i=datos.findIndex(x=>x.key===k);
+  if(i>=0) datos[i]={...datos[i],...obj};
+  else datos.push(obj);
+  localStorage.setItem("bobinas_pro",JSON.stringify(datos));
+  msg.innerHTML=`<span class="ok">✅ Guardado correctamente.</span>`;
+}
+
+function cambiarEstado(k){
+  const i=datos.findIndex(x=>x.key===k);
+  if(i>=0){
+    datos[i].estado = datos[i].estado==="Libre" ? "Ocupada" : "Libre";
+    localStorage.setItem("bobinas_pro",JSON.stringify(datos));
+    buscarBobina();
+    renderLista();
+  }
+}
+
+function borrar(k){
+  if(!confirm("¿Borrar este dato?")) return;
+  datos=datos.filter(x=>x.key!==k);
+  localStorage.setItem("bobinas_pro",JSON.stringify(datos));
+  renderLista();
+}
+
+function renderLista(){
+  const box=document.getElementById("listaDatos");
+  if(!datos.length){box.innerHTML=`<div class="result">Todavía no hay datos guardados.</div>`;return;}
+  box.innerHTML=datos.map(x=>`
+    <div class="item">
+      <strong>Calle ${x.calle}</strong><br>
+      <span class="small">${x.espesor} · ${x.ancho} · ${x.cromado} · ${x.planta}</span><br>
+      <span class="pill ${x.estado==='Libre'?'libre':'ocupada'}">${x.estado}</span>
+      <button class="secondary" onclick="cambiarEstado('${x.key}')">Cambiar estado</button>
+      <button class="red" onclick="borrar('${x.key}')">Borrar</button>
+    </div>
+  `).join("");
+}
+</script>
+</body>
+</html>
