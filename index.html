@@ -240,6 +240,30 @@ function limpiarBuscar(){
   document.getElementById("resultado").classList.add("hidden");
   document.querySelectorAll("#bPlanta .check").forEach(x=>x.classList.remove("active"));
 }
+  function setupEnterNavigation(){
+  const ordenBuscar = [bEspesor, bAncho, bCromado];
+  const ordenAdd = [aEspesor, aAncho, aCromado, aCalle];
+
+  ordenBuscar.forEach((el, i)=>{
+    el.addEventListener("keydown", e=>{
+      if(e.key==="Enter"){
+        e.preventDefault();
+        if(ordenBuscar[i+1]) ordenBuscar[i+1].focus();
+      }
+    });
+  });
+
+  ordenAdd.forEach((el, i)=>{
+    el.addEventListener("keydown", e=>{
+      if(e.key==="Enter"){
+        e.preventDefault();
+        if(ordenAdd[i+1]) ordenAdd[i+1].focus();
+      }
+    });
+  });
+}
+
+setupEnterNavigation();
 </script>
 </body>
 </html>
