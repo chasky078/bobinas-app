@@ -258,7 +258,7 @@ const e=aEspesor.value, a=aAncho.value, c=aCromado.value, calle="W " + aCalle.va
     return;
   }
   const k=clave(e,a,c,plantaAdd);
-const obj={key:k,espesor:e.trim(),ancho:a.trim(),cromado:c.trim(),planta:plantaAdd,proveedor:document.getElementById("aProveedor")?.value||"",calle:calle}  const i=datos.findIndex(x=>x.key===k);
+const obj={key:k,espesor:e.trim(),ancho:a.trim(),cromado:c.trim(),planta:plantaAdd,calle:calle};
   if(i>=0) datos[i]={...datos[i],...obj};
   else datos.push(obj);
   localStorage.setItem("bobinas_pro",JSON.stringify(datos));
