@@ -272,6 +272,13 @@ setupEnterNavigation();
     bAncho.focus();
   }
 });
+  aEspesor.addEventListener("input", function(){
+  let valor = aEspesor.value.replace(",", ".");
+  
+  if(valor.length >= 4){
+    aAncho.focus();
+  }
+});
 </script>
 </body>
 </html>
