@@ -117,42 +117,43 @@
   <div id="resultado" class="result hidden"></div>
   </section>
   <section id="add" class="card hidden">
-    <h2>Añadir / editar dato</h2>
-    <div class="grid">
-  <div>
-    <label>Espesor</label>
-    <input id="aEspesor" placeholder="0,160" inputmode="decimal" enterkeyhint="next">
-  </div>
- <div>
-  <label>Ancho</label>
-  <input id="aAncho" placeholder="870" inputmode="numeric" enterkeyhint="next">
- 
- </div>
+  <h2>Añadir / editar dato</h2>
+
+  <div class="grid">
     <div>
+      <label>Espesor</label>
+      <input id="aEspesor" placeholder="0,160" inputmode="decimal" enterkeyhint="next">
+    </div>
+
+    <div>
+      <label>Ancho</label>
+      <input id="aAncho" placeholder="870" inputmode="numeric" enterkeyhint="next">
+    </div>
+  </div>
+
   <label>Cromado</label>
-<select id="aCromado">
-  <option value="" selected disabled>Selecciona cromado</option>
-  <option>1.4/1.4</option>
-  <option>2.8/1.4</option>
-  <option>2.8/2.0</option>
-  <option>2.8/2.8</option>
-  <option>2.8/5.6</option>
-  <option>5.6/5.6</option>
-  <option>TFS</option>
-</select>    </div>
-<div>
+  <select id="aCromado">
+    <option value="" selected disabled>Selecciona cromado</option>
+    <option>1.4/1.4</option>
+    <option>2.8/1.4</option>
+    <option>2.8/2.0</option>
+    <option>2.8/2.8</option>
+    <option>2.8/5.6</option>
+    <option>5.6/5.6</option>
+    <option>TFS</option>
+  </select>
+
   <label>Planta</label>
   <div id="aPlanta" class="plantas"></div>
-</div>  <label>Planta</label>
-  <div id="aPlanta" class="plantas"></div>
-    </div>="plantas"></div>
-    <div>
+
   <label>Calle</label>
   <input id="aCalle" placeholder="Ej: 23">
-    </div>
-    <button class="green" onclick="guardarBobina()">GUARDAR</button>
-    <button class="secondary" onclick="limpiarAdd()">LIMPIAR</button>
-    <div id="msgAdd" class="result hidden"></div>
+
+  <button class="green" onclick="guardarBobina()">GUARDAR</button>
+  <button class="secondary" onclick="limpiarAdd()">LIMPIAR</button>
+
+  <div id="msgAdd" class="result hidden"></div>
+  </section>
   </section>
 
   <section id="lista" class="card hidden">
