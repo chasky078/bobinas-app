@@ -200,6 +200,15 @@ function pintarPlantas(id, tipo){
       if(tipo==="buscar") plantaBuscar=p; else plantaAdd=p;
       [...cont.children].forEach(x=>x.classList.remove("active"));
       d.classList.add("active");
+      const bloque = document.getElementById("bloqueProveedor");
+
+if(tipo === "add"){
+  if(p === "Extranjeras"){
+    bloque.classList.remove("hidden");
+  } else {
+    bloque.classList.add("hidden");
+  }
+}
     };
     cont.appendChild(d);
   });
