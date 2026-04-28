@@ -295,6 +295,17 @@ function renderLista(){
     </div>
   `).join("");
 }
+  function limpiarAdd(){
+  aEspesor.value="";
+  aAncho.value="";
+  aCromado.value="";
+  aCalle.value="";
+  plantaAdd="";
+  document.getElementById("msgAdd").classList.add("hidden");
+  document.querySelectorAll("#aPlanta .check").forEach(x=>x.classList.remove("active"));
+  const bloque = document.getElementById("bloqueProveedor");
+  if(bloque) bloque.classList.add("hidden");
+  }
 function limpiarBuscar(){
   bEspesor.value="";
   bAncho.value="";
