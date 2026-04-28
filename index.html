@@ -195,7 +195,7 @@ function buscarBobina(){
 }
 
 function guardarBobina(){
-const e=aEspesor.value, a=aAncho.value, c=aCromado.value, calle="W " + aCalle.value;  const msg=document.getElementById("msgAdd");
+const e=aEspesor.value, a=aAncho.value, c=aCromado.value, calle="W " + aCalle.value.padStart(2,'0');  const msg=document.getElementById("msgAdd");
   msg.classList.remove("hidden");
   if(!e||!a||!c||!plantaAdd||!calle){
     msg.innerHTML=`<span class="warn">⚠️ Faltan datos.</span>`;
