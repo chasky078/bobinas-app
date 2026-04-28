@@ -195,7 +195,7 @@ function buscarBobina(){
 }
 
 function guardarBobina(){
-  const e=aEspesor.value, a=aAncho.value, c=aCromado.value, calle=aCalle.value;
+  const e=aEspesor.value, a=aAncho.value, calle="W " + aCalle.value;
   const msg=document.getElementById("msgAdd");
   msg.classList.remove("hidden");
   if(!e||!a||!c||!plantaAdd||!calle){
