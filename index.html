@@ -88,8 +88,19 @@
   </div>
 
   <label>Cromado</label>
-  <input id="bCromado" placeholder="50-140" enterkeyhint="search">
-    <button class="secondary" onclick="document.querySelector('#bPlanta .check').scrollIntoView({behavior:'smooth', block:'center'})">SIGUIENTE ➡️</button>
+<select id="bCromado">
+  <option value="">Selecciona cromado</option>
+  <option value="2.8/1.4">2.8/1.4</option>
+  <option value="1.4/1.4">1.4/1.4</option>
+  <option value="2.8/2.0">2.8/2.0</option>
+  <option value="2.8/2.8">2.8/2.8</option>
+  <option value="2.8/5.6">2.8/5.6</option>
+  <option value="5.6/5.6">5.6/5.6</option>
+  <option value="TFS">TFS</option>
+  <option value="TONYI">TONYI</option>
+  <option value="HOLLAND">HOLLAND</option>
+  <option value="RSLT">RSLT</option>
+</select>    <button class="secondary" onclick="document.querySelector('#bPlanta .check').scrollIntoView({behavior:'smooth', block:'center'})">SIGUIENTE ➡️</button>
 
   <label>Planta</label>
   <div id="bPlanta" class="plantas"></div>
