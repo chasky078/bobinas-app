@@ -264,6 +264,14 @@ function limpiarBuscar(){
 }
 
 setupEnterNavigation();
+  bEspesor.addEventListener("input", function(){
+  let valor = bEspesor.value.replace(",", ".");
+  
+  // Si tiene formato tipo 0.16 o 0,16
+  if(valor.length >= 4){
+    bAncho.focus();
+  }
+});
 </script>
 </body>
 </html>
