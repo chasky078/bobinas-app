@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bobinas PRO</title>
+  <style>
+    :root{
+      --bg:#07111f;--card:#101c2e;--card2:#0c1727;--txt:#f4f7fb;
+      --muted:#9fb0c7;--blue:#38bdf8;--green:#22c55e;--red:#ef4444;
+      --yellow:#facc15;--border:#26364d;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,system-ui,sans-serif;background:linear-gradient(180deg,#020617,#07111f);color:var(--txt)}
+    .app{max-width:520px;margin:auto;padding:18px 14px 90px}
+    .top{text-align:center;margin:12px 0 22px}
+    .logo{font-size:38px}
+    h1{margin:6px 0 4px;font-size:30px}
+    .sub{color:var(--muted);font-size:14px}
+    .card{background:rgba(16,28,46,.96);border:1px solid var(--border);border-radius:22px;padding:16px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    label{display:block;margin:12px 0 6px;color:#d9e6f7;font-weight:700}
+    input{width:100%;padding:15px;border-radius:14px;border:1px solid var(--border);background:#07111f;color:white;font-size:18px}
+    input::placeholder{color:#64748b}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .plantas{display:grid;grid-template-columns:1fr;gap:9px;margin-top:8px}
+    .check{display:flex;align-items:center;gap:10px;padding:13px;border-radius:14px;background:#07111f;border:1px solid var(--border);cursor:pointer}
+    .box{width:22px;height:22px;border:2px solid var(--blue);border-radius:6px;display:grid;place-items:center}
+    .check.active .box{background:var(--blue);color:#00111c}
+    .check.active .box:after{content:"✓";font-weight:900}
+    button{width:100%;border:0;border-radius:16px;padding:15px;font-size:17px;font-weight:900;color:#00111c;background:var(--blue);margin-top:14px;cursor:pointer}
+    button.secondary{background:#1f2937;color:white;border:1px solid var(--border)}
+    button.green{background:var(--green)}
+    button.red{background:var(--red);color:white}
+    .result{margin-top:14px;padding:16px;border-radius:16px;background:#07111f;border:1px solid var(--border);font-size:18px}
+    .ok{color:var(--green);font-weight:900}
+    .bad{color:var(--red);font-weight:900}
+
+
